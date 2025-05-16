@@ -69,16 +69,16 @@
     height: 100%;
 }
 
-.fjsc.flex, .fjsc.flex-v {
+.jess.flex, .jess.flex-v {
     display: flex;
 }
 
-.fjsc.flex-v {
+.jess.flex-v {
     flex-direction: column;
     gap: var(--jessc-gap);
 }
 
-.fjsc.gap {
+.jess.gap {
     gap: var(--jessc-gap);
 }
 
@@ -94,12 +94,12 @@
     flex-wrap: wrap;
 }
 
-label.fjsc {
+label.jess {
     height: max-content;
     font-size: 0.8em;
 }
 
-.fjsc {
+.jess {
     font-family: var(--jessc-font), sans-serif;
     font-size: var(--jessc-base-font-size);
     border: none;
@@ -121,7 +121,7 @@ label.fjsc {
     border: 1px solid var(--jessc-container-border);
 }
 
-button.fjsc, input.fjsc, select.fjsc, textarea.fjsc {
+button.jess, input.jess, select.jess, textarea.jess {
     padding: var(--jessc-input-padding-y) var(--jessc-input-padding-x);
     border-radius: var(--jessc-border-radius-small);
     border: 1px solid var(--jessc-interactive-border);
@@ -134,26 +134,26 @@ button.fjsc, input.fjsc, select.fjsc, textarea.fjsc {
     padding-left: calc(2em) !important;
 }
 
-label.fjsc {
+label.jess {
     position: relative;
 }
 
-button.fjsc:hover {
+button.jess:hover {
     cursor: pointer;
     border: 1px solid var(--jessc-interactive-border-active);
 }
 
-button.fjsc:hover, input.fjsc:hover, select.fjsc:hover, textarea.fjsc:hover {
+button.jess:hover, input.jess:hover, select.jess:hover, textarea.jess:hover {
     background: var(--jessc-interactive-background-hover);
 }
 
-button.fjsc.active, input.fjsc.active, select.fjsc.active, textarea.fjsc.active {
+button.jess.active, input.jess.active, select.jess.active, textarea.jess.active {
     background: var(--jessc-interactive-background-active);
     color: var(--jessc-interactive-color-active);
     border-color: var(--jessc-interactive-border-active);
 }
 
-button.fjsc:focus-visible, input.fjsc:focus-visible, select.fjsc:focus-visible, textarea.fjsc:focus-visible {
+button.jess:focus-visible, input.jess:focus-visible, select.jess:focus-visible, textarea.jess:focus-visible {
     outline: none;
     border-color: var(--jessc-interactive-border-focused);
 }
@@ -218,31 +218,31 @@ button.fjsc:focus-visible, input.fjsc:focus-visible, select.fjsc:focus-visible, 
     border-color: var(--jessc-interactive-border-focused);
 }
 
-h1.fjsc, h2.fjsc, h3.fjsc, h4.fjsc, h5.fjsc, h6.fjsc {
+h1.jess, h2.jess, h3.jess, h4.jess, h5.jess, h6.jess {
     margin: 0;
 }
 
-h1.fjsc {
+h1.jess {
     font-size: 2em;
 }
 
-h2.fjsc {
+h2.jess {
     font-size: 1.5em;
 }
 
-h3.fjsc {
+h3.jess {
     font-size: 1.17em;
 }
 
-h4.fjsc {
+h4.jess {
     font-size: 1em;
 }
 
-h5.fjsc {
+h5.jess {
     font-size: 0.83em;
 }
 
-h6.fjsc {
+h6.jess {
     font-size: 0.67em;
 }
 
