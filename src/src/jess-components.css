@@ -1,0 +1,361 @@
+:root {
+    --jessc-primary-100: #f5f5f5;
+    --jessc-primary-200: #e0e0e0;
+    --jessc-primary-300: #c6c6c6;
+    --jessc-primary-400: #a8a8a8;
+    --jessc-primary-500: #8c8c8c;
+    --jessc-primary-600: #6c6c6c;
+    --jessc-primary-700: #2b2b2b;
+    --jessc-primary-800: #1b1b1b;
+    --jessc-primary-900: #0c0c0c;
+    --jessc-primary-1000: #000000;
+
+    --jessc-error-color: #ff3333;
+
+    --jessc-area-background: var(--jessc-primary-900);
+    --jessc-area-border: var(--jessc-primary-800);
+
+    --jessc-container-background: var(--jessc-primary-800);
+    --jessc-container-border: var(--jessc-primary-700);
+
+    --jessc-text-color: var(--jessc-primary-100);
+
+    --jessc-interactive-background: var(--jessc-primary-900);
+    --jessc-interactive-background-hover: var(--jessc-primary-700);
+    --jessc-interactive-background-active: var(--jessc-primary-300);
+    --jessc-interactive-color: var(--jessc-primary-200);
+    --jessc-interactive-color-active: var(--jessc-primary-900);
+    --jessc-interactive-border: var(--jessc-primary-700);
+    --jessc-interactive-border-focused: #1ca6ff;
+    --jessc-interactive-border-active: #1685cc;
+
+    --jessc-input-padding-x: 0.75em;
+    --jessc-input-padding-y: 0.3em;
+
+    --jessc-container-padding-x: 8px;
+    --jessc-container-padding-y: 8px;
+
+    --jessc-area-padding-x: 16px;
+    --jessc-area-padding-y: 16px;
+
+    --jessc-border-radius-small: 4px;
+    --jessc-border-radius-medium: 6px;
+    --jessc-border-radius-large: 12px;
+
+    --jessc-font: sans-serif;
+    --jessc-base-font-size: 16px;
+    --jessc-gap: 5px;
+}
+
+.no-pointer {
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.material-symbols-outlined {
+    font-size: var(--jessc-base-font-size) !important;
+    font-family: 'Material Symbols Outlined' !important;
+}
+
+.adaptive-icon {
+    font-size: 1em !important;
+}
+
+.jessc-fill-parent {
+    width: 100%;
+    height: 100%;
+}
+
+.fjsc.flex, .fjsc.flex-v {
+    display: flex;
+}
+
+.fjsc.flex-v {
+    flex-direction: column;
+    gap: var(--jessc-gap);
+}
+
+.fjsc.gap {
+    gap: var(--jessc-gap);
+}
+
+.relative {
+    position: relative;
+}
+
+.align-children {
+    align-items: center;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+label.fjsc {
+    height: max-content;
+    font-size: 0.8em;
+}
+
+.fjsc {
+    font-family: var(--jessc-font), sans-serif;
+    font-size: var(--jessc-base-font-size);
+    border: none;
+    background: none;
+    color: var(--jessc-text-color);
+}
+
+.jessc-area {
+    background: var(--jessc-area-background);
+    padding: var(--jessc-area-padding-y) var(--jessc-area-padding-x);
+    border-radius: var(--jessc-border-radius-large);
+    border: 1px solid var(--jessc-area-border);
+}
+
+.jessc-container {
+    background: var(--jessc-container-background);
+    padding: var(--jessc-container-padding-y) var(--jessc-container-padding-x);
+    border-radius: var(--jessc-border-radius-medium);
+    border: 1px solid var(--jessc-container-border);
+}
+
+button.fjsc, input.fjsc, select.fjsc, textarea.fjsc {
+    padding: var(--jessc-input-padding-y) var(--jessc-input-padding-x);
+    border-radius: var(--jessc-border-radius-small);
+    border: 1px solid var(--jessc-interactive-border);
+    background: var(--jessc-interactive-background);
+    color: var(--jessc-interactive-color);
+    height: max-content;
+}
+
+.jessc-password-input {
+    padding-left: calc(2em) !important;
+}
+
+label.fjsc {
+    position: relative;
+}
+
+button.fjsc:hover {
+    cursor: pointer;
+    border: 1px solid var(--jessc-interactive-border-active);
+}
+
+button.fjsc:hover, input.fjsc:hover, select.fjsc:hover, textarea.fjsc:hover {
+    background: var(--jessc-interactive-background-hover);
+}
+
+button.fjsc.active, input.fjsc.active, select.fjsc.active, textarea.fjsc.active {
+    background: var(--jessc-interactive-background-active);
+    color: var(--jessc-interactive-color-active);
+    border-color: var(--jessc-interactive-border-active);
+}
+
+button.fjsc:focus-visible, input.fjsc:focus-visible, select.fjsc:focus-visible, textarea.fjsc:focus-visible {
+    outline: none;
+    border-color: var(--jessc-interactive-border-focused);
+}
+
+.jessc-search-select {
+    height: max-content;
+}
+
+.jessc-search-select-options {
+    box-sizing: border-box;
+    max-height: 30dvh;
+    overflow: auto;
+    position: absolute;
+    min-width: 100%;
+    top: 100%;
+    left: 0;
+    background: var(--jessc-interactive-background);
+    border: 1px solid var(--jessc-interactive-border);
+    border-radius: 0 0 var(--jessc-border-radius-small) var(--jessc-border-radius-small);
+    z-index: 9999;
+    gap: 0 !important;
+    flex-wrap: nowrap;
+}
+
+.jessc-search-select-option {
+    cursor: pointer;
+    padding: var(--jessc-input-padding-y) var(--jessc-input-padding-x);
+}
+
+.jessc-search-select-option:hover, .jessc-search-select-option.selected {
+    background: var(--jessc-interactive-background-hover);
+}
+
+.jessc-search-select-dropdown {
+    background: var(--jessc-interactive-background);
+    cursor: pointer;
+    padding: var(--jessc-input-padding-y) var(--jessc-input-padding-x);
+    border: 1px solid var(--jessc-interactive-border);
+    border-radius: 0 var(--jessc-border-radius-small) var(--jessc-border-radius-small) 0;
+    border-left: none;
+    line-height: 1;
+}
+
+.jessc-search-select-dropdown:hover {
+    background: var(--jessc-interactive-background-hover);
+}
+
+.jessc-search-select-visible {
+    gap: 0 !important;
+    width: 100%;
+}
+
+.jessc-search-select-input {
+    flex-grow: 1;
+    background: var(--jessc-interactive-background);
+    border-radius: var(--jessc-border-radius-small) 0 0 var(--jessc-border-radius-small) !important;
+    border: 1px solid var(--jessc-interactive-border);
+}
+
+.jessc-search-select-input:focus-visible {
+    outline: none;
+    border-color: var(--jessc-interactive-border-focused);
+}
+
+h1.fjsc, h2.fjsc, h3.fjsc, h4.fjsc, h5.fjsc, h6.fjsc {
+    margin: 0;
+}
+
+h1.fjsc {
+    font-size: 2em;
+}
+
+h2.fjsc {
+    font-size: 1.5em;
+}
+
+h3.fjsc {
+    font-size: 1.17em;
+}
+
+h4.fjsc {
+    font-size: 1em;
+}
+
+h5.fjsc {
+    font-size: 0.83em;
+}
+
+h6.fjsc {
+    font-size: 0.67em;
+}
+
+.jessc-checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: calc(1em + var(--jessc-gap));
+    cursor: pointer;
+    user-select: none;
+}
+
+.jessc-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.jessc-checkbox-container input:focus-visible ~ .checkmark {
+    border: 2px solid var(--jessc-interactive-border);
+}
+
+.invalid .jessc-checkmark {
+    border-color: var(--jessc-error-color);
+}
+
+.jessc-checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 14px;
+    width: 14px;
+    background-color: var(--jessc-interactive-background);
+    border: 1px solid var(--jessc-interactive-border);
+    border-radius: var(--jessc-border-radius-small);
+}
+
+.jessc-checkmark:hover {
+    background: var(--jessc-interactive-background-hover);
+}
+
+.jessc-checkmark-icon {
+    top: -4px;
+    position: absolute;
+    left: 2px;
+    font-size: 14px;
+    display: none;
+}
+
+.jessc-checkbox-container input:checked ~ .jessc-checkmark .jessc-checkmark-icon {
+    display: initial;
+}
+
+.jessc-toggle-container {
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+    background: var(--jessc-interactive-background);
+    position: relative;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.invalid .jessc-toggle-container {
+    border: 1px solid var(--jessc-error-color);
+}
+
+.jessc-toggle-slider {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--jessc-interactive-background-active);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left .2s ease;
+    left: 2px;
+}
+
+input.jessc-slider:checked ~ .jessc-toggle-container {
+    background: var(--jessc-interactive-color);
+}
+
+input.jessc-slider:checked ~ .jessc-toggle-container .jessc-toggle-slider {
+    left: 22px;
+    background: var(--jessc-interactive-background);
+}
+
+input.invalid, textarea.invalid, button.invalid {
+    border-color: var(--jessc-error-color);
+}
+
+.jessc-error {
+    color: var(--jessc-error-color);
+    font-size: 0.9em;
+}
+
+.disabled {
+    opacity: .5;
+    pointer-events: none;
+}
+
+.disabled * {
+    pointer-events: none;
+}
+
+.jessc-eye-button {
+    position: absolute;
+    left: var(--jessc-input-padding-x);
+    top: 50%;
+    cursor: pointer;
+    display: flex;
+    transform: translateY(10%);
+    font-size: 1.2em;
+}
