@@ -100,10 +100,10 @@ export function input<T>(config: InputConfig<T>) {
     }
 
     return create("div")
-        .classes("flex-v", "fjsc")
+        .classes("flex-v", "jess")
         .children(
             create("label")
-                .classes("flex-v", "fjsc", getDisabledClass(config))
+                .classes("flex-v", "jess", getDisabledClass(config))
                 .text(config.label ?? "")
                 .for(config.title)
                 .children(
@@ -191,10 +191,10 @@ export function textarea(config: TextareaConfig) {
     }
 
     return create("div")
-        .classes("flex-v", "fjsc", ...config.classes ?? [])
+        .classes("flex-v", "jess", ...config.classes ?? [])
         .children(
             create("label")
-                .classes("flex-v", "fjsc", getDisabledClass(config))
+                .classes("flex-v", "jess", getDisabledClass(config))
                 .text(config.label ?? "")
                 .for(config.name)
                 .children(
@@ -233,7 +233,7 @@ export function textarea(config: TextareaConfig) {
 
 export function errorList(errors: Signal<string[]>) {
     return signalMap(errors, create("div")
-        .classes("flex-v", "fjsc", "jessc-error-list"), error);
+        .classes("flex-v", "jess", "jessc-error-list"), error);
 }
 
 export function error(error: StringOrSignal) {
@@ -334,14 +334,14 @@ export function searchableSelect(config: SearchableSelectConfig) {
         .classes("jessc-search-select", "flex-v", "relative")
         .children(
             when(config.label, create("label")
-                .classes("fjsc")
+                .classes("jess")
                 .text(config.label)
                 .build()),
             create("div")
-                .classes("flex", "jessc-search-select-visible", "fjsc")
+                .classes("flex", "jessc-search-select-visible", "jess")
                 .children(
                     create("input")
-                        .classes("fjsc", "jessc-search-select-input", getDisabledClass(config))
+                        .classes("jess", "jessc-search-select-input", getDisabledClass(config))
                         .value(search)
                         .onfocus(() => {
                             optionsVisible.value = true;
@@ -455,7 +455,7 @@ export function checkbox(config: BooleanConfig) {
     }
 
     return create("div")
-        .classes("flex-v", "fjsc")
+        .classes("flex-v", "jess")
         .children(
             create("label")
                 .applyGenericConfig(config)
@@ -517,7 +517,7 @@ export function toggle(config: BooleanConfig) {
     }
 
     return create("div")
-        .classes("flex-v", "fjsc")
+        .classes("flex-v", "jess")
         .children(
             create("label")
                 .applyGenericConfig(config)
