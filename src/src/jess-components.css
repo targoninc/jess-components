@@ -302,9 +302,9 @@ h6.jess {
     height: 20px;
     border-radius: 10px;
     background: var(--jessc-interactive-background);
+    border: 1px solid var(--jessc-interactive-border);
     position: relative;
     cursor: pointer;
-    border: 1px solid transparent;
 }
 
 .invalid .jessc-toggle-container {
