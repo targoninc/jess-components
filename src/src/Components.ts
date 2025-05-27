@@ -281,25 +281,26 @@ export function heading(config: HeadingConfig) {
 
 export function icon(config: IconConfig) {
     const icon = config.icon;
-    const isMaterial = !config.isUrl;
     const iconClass = config.adaptive ? "adaptive-icon" : "static-icon";
     const pointerClass = config.title ? "_" : "no-pointer";
 
-    if (isMaterial) {
-        return create("i")
+    return compute((isImage: boolean) => {
+        if (!isImage) {
+            return create("i")
+                .applyGenericConfig(config)
+                .classes(iconClass, "material-symbols-outlined", pointerClass)
+                .text(icon)
+                .onclick(config.onclick)
+                .build();
+        }
+
+        return create("img")
             .applyGenericConfig(config)
-            .classes(iconClass, "material-symbols-outlined", pointerClass)
-            .text(icon)
+            .classes(iconClass, pointerClass)
+            .attributes("src", icon)
             .onclick(config.onclick)
             .build();
-    }
-
-    return create("img")
-        .applyGenericConfig(config)
-        .classes(iconClass, pointerClass)
-        .attributes("src", icon)
-        .onclick(config.onclick)
-        .build();
+    }, asSignal(config.isUrl ?? false));
 }
 
 export function searchableSelect(config: SearchableSelectConfig) {
