@@ -44,7 +44,10 @@ export function button(config: ButtonConfig) {
         .classes(getDisabledClass(config))
         .attributes("tabindex", config.tabindex ?? "0")
         .children(
-            when(config.icon, () => icon(config.icon!)),
+            when(config.icon, () => create("div")
+                .children(
+                    icon(config.icon!)
+                ).build()),
             when(config.text, () => text(<TextConfig>{
                 text: config.text!,
             }))
@@ -414,11 +417,14 @@ export function searchSelectOption(config: SelectOptionConfig) {
             config.optionsVisible.value = false;
         })
         .children(
-            when(config.option.image, icon({
-                icon: config.option.image ?? "",
-                isUrl: config.option.imageIsUrl,
-                adaptive: true
-            })),
+            when(config.option.image, create("div")
+                .children(
+                    icon({
+                        icon: config.option.image ?? "",
+                        isUrl: config.option.imageIsUrl,
+                        adaptive: true
+                    })
+                ).build()),
             create("span")
                 .text(config.option.name)
                 .build()
