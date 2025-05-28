@@ -45,6 +45,7 @@ export function button(config: ButtonConfig) {
         .attributes("tabindex", config.tabindex ?? "0")
         .children(
             when(config.icon, () => create("div")
+                .classes("jess", "flex", "align-children")
                 .children(
                     icon(config.icon!)
                 ).build()),
