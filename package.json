@@ -17,7 +17,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@targoninc/jess": "^0.0.12"
+    "@targoninc/jess": "^0.0.15"
   },
   "devDependencies": {
     "@types/bun": "latest",
