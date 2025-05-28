@@ -74,7 +74,7 @@ export interface TextConfig extends BaseComponentConfig  {
 export interface IconConfig extends BaseComponentConfig  {
     icon: StringOrSignal;
     adaptive?: boolean;
-    isUrl?: boolean;
+    isUrl?: TypeOrSignal<boolean>;
     onclick?: Function;
 }
 
