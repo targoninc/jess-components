@@ -303,7 +303,7 @@ export function icon(config: IconConfig) {
             .attributes("src", icon)
             .onclick(config.onclick)
             .build();
-    }, asSignal(config.isUrl ?? false));
+    }, asSignal(config.isUrl ?? false) as Signal<boolean>);
 }
 
 export function searchableSelect(config: SearchableSelectConfig) {
