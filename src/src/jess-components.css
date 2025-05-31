@@ -154,7 +154,7 @@ button.jess.active, input.jess.active, select.jess.active, textarea.jess.active 
 }
 
 button.jess:focus-visible, input.jess:focus-visible, select.jess:focus-visible, textarea.jess:focus-visible {
-    outline: none;
+    outline: 1px solid var(--jessc-interactive-border-focused);
     border-color: var(--jessc-interactive-border-focused);
 }
 
