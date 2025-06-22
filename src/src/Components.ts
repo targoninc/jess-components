@@ -93,7 +93,7 @@ export function input<T>(config: InputConfig<T>) {
         }
     }
 
-    let value: HtmlPropertyValue = config.value as HtmlPropertyValue;
+    let value: Signal<HtmlPropertyValue> = config.value as Signal<HtmlPropertyValue>;
     if (isSignal(config.value)) {
         asSignal(config.value).subscribe(validate);
         validate(asSignal(config.value).value);
@@ -115,7 +115,7 @@ export function input<T>(config: InputConfig<T>) {
                         .classes(invalidClass, passwordClass)
                         .applyGenericConfig(config)
                         .type(actualType)
-                        .value(value)
+                        .value(value as HtmlPropertyValue)
                         .accept(config.accept ?? "")
                         .required(config.required ?? false)
                         .placeholder(config.placeholder ?? "")
@@ -130,6 +130,7 @@ export function input<T>(config: InputConfig<T>) {
                             if (config.onchange) {
                                 config.onchange(e.target.value);
                             }
+                            value.value = e.target.value;
                         })
                         .onchange((e: any) => {
                             touched.value = true;
@@ -141,6 +142,7 @@ export function input<T>(config: InputConfig<T>) {
                             if (config.onchange) {
                                 config.onchange(e.target.value);
                             }
+                            value.value = e.target.value;
                         })
                         .onkeydown(config.onkeydown ?? (() => {
                         }))
