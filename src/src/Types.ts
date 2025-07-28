@@ -98,6 +98,8 @@ export interface SearchableSelectConfig<T = string> extends ChangeableConfig<T> 
     value: Signal<T>;
 }
 
+export type SelectConfig = SearchableSelectConfig;
+
 export interface HeadingConfig extends BaseComponentConfig  {
     level?: IntRange<1, 6>;
     text: StringOrSignal;

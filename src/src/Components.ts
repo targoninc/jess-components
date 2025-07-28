@@ -5,7 +5,7 @@ import type {
     HeadingConfig,
     IconConfig,
     InputConfig,
-    SearchableSelectConfig,
+    SearchableSelectConfig, SelectConfig,
     SelectOption,
     SelectOptionConfig,
     TextareaConfig,
@@ -307,6 +307,30 @@ export function icon(config: IconConfig) {
             .onclick(config.onclick)
             .build();
     }, asSignal(config.isUrl ?? false) as Signal<boolean>);
+}
+
+export function select(config: SelectConfig) {
+    const options = config.options ?? signal([]);
+    const value = config.value ?? signal(null);
+
+    return create("div")
+        .applyGenericConfig(config)
+        .classes("jessc-select", "flex-v", "relative")
+        .children(
+            when(config.label, create("label")
+                .classes("jess")
+                .text(config.label)
+                .build()),
+            signalMap(options,
+                create("select")
+                    .classes("jessc-select-inner")
+                    .value(value),
+                (option: SelectOption) =>
+                create("option")
+                    .value(option.id)
+                    .text(option.name)
+                    .build())
+        ).build();
 }
 
 export function searchableSelect(config: SearchableSelectConfig) {
