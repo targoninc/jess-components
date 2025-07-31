@@ -324,7 +324,7 @@ export function select(config: SelectConfig) {
             signalMap(options,
                 create("select")
                     .classes("jessc-select-inner")
-                    .onchange(config.onchange)
+                    .onchange(e => config.onchange ? config.onchange((e.target as HTMLInputElement).value) : undefined)
                     .value(value),
                 (option: SelectOption) =>
                 create("option")
