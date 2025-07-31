@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import type {
     BooleanConfig,
     ButtonConfig,
@@ -311,7 +312,12 @@ export function icon(config: IconConfig) {
 
 export function select(config: SelectConfig) {
     const options = config.options ?? signal([]);
-    const value = config.value ?? signal(null);
+    const value$ = config.value ?? signal(null);
+    const selectId = v4();
+    value$.subscribe(value => {
+        const opts = document.querySelectorAll<HTMLOptionElement>(`select#${selectId} option`);
+        opts.forEach(opt => opt.selected = opt.value === value);
+    });
 
     return create("div")
         .applyGenericConfig(config)
@@ -324,8 +330,9 @@ export function select(config: SelectConfig) {
             signalMap(options,
                 create("select")
                     .classes("jessc-select-inner")
+                    .id(selectId)
                     .onchange(e => config.onchange ? config.onchange((e.target as HTMLInputElement).value) : undefined)
-                    .value(value),
+                    .value(value$),
                 (option: SelectOption) =>
                 create("option")
                     .value(option.id)
