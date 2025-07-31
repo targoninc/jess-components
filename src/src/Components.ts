@@ -314,10 +314,14 @@ export function select(config: SelectConfig) {
     const options = config.options ?? signal([]);
     const value$ = config.value ?? signal(null);
     const selectId = v4();
-    value$.subscribe(value => {
+
+    function setSelected(value: string) {
         const opts = document.querySelectorAll<HTMLOptionElement>(`select#${selectId} option`);
         opts.forEach(opt => opt.selected = opt.value === value);
-    });
+    }
+
+    value$.subscribe(setSelected);
+    setSelected(value$.value);
 
     return create("div")
         .applyGenericConfig(config)
