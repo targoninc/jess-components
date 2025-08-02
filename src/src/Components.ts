@@ -341,11 +341,13 @@ export function select(config: SelectConfig) {
                         value$.value = (e.target as HTMLSelectElement).value;
                         config.onchange ? config.onchange((e.target as HTMLSelectElement).value) : undefined;
                     }),
-                (option: SelectOption) =>
-                create("option")
-                    .value(option.id)
-                    .text(option.name)
-                    .build())
+                (option: SelectOption) => {
+                    return create("option")
+                        .value(option.id)
+                        .text(option.name)
+                        .selected(compute(v => v === option.id, value$) as HtmlPropertyValue)
+                        .build();
+                })
         ).build();
 }
 
