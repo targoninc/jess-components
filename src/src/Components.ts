@@ -335,8 +335,7 @@ export function select(config: SelectConfig) {
                 create("select")
                     .classes("jessc-select-inner")
                     .id(selectId)
-                    .onchange(e => config.onchange ? config.onchange((e.target as HTMLInputElement).value) : undefined)
-                    .value(value$),
+                    .onchange(e => config.onchange ? config.onchange((e.target as HTMLInputElement).value) : undefined),
                 (option: SelectOption) =>
                 create("option")
                     .value(option.id)
