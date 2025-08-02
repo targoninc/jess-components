@@ -317,7 +317,9 @@ export function select(config: SelectConfig) {
 
     function setSelected(value: string) {
         const opts = document.querySelectorAll<HTMLOptionElement>(`select[id="${selectId}"] option`);
-        opts.forEach(opt => opt.selected = opt.value === value);
+        opts.forEach(opt => {
+            opt.selected = opt.value === value;
+        });
     }
 
     value$.subscribe(setSelected);
