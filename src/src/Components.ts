@@ -315,16 +315,6 @@ export function select(config: SelectConfig) {
     const value$ = config.value ?? signal(null);
     const selectId = v4();
 
-    function setSelected(value: string) {
-        const opts = document.querySelectorAll<HTMLOptionElement>(`select[id="${selectId}"] option`);
-        opts.forEach(opt => {
-            opt.selected = opt.value === value;
-        });
-    }
-
-    value$.subscribe(setSelected);
-    setSelected(value$.value);
-
     return create("div")
         .applyGenericConfig(config)
         .classes("jessc-select", "flex-v", "relative")
