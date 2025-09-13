@@ -78,15 +78,15 @@ export interface IconConfig extends BaseComponentConfig  {
     onclick?: Function;
 }
 
-export interface SelectOption extends BaseComponentConfig  {
+export interface SelectOption<T> extends BaseComponentConfig  {
     image?: string;
     imageIsUrl?: boolean;
     name: any;
-    id: any;
+    id: any | T;
 }
 
-export interface SelectOptionConfig extends BaseComponentConfig  {
-    option: SelectOption;
+export interface SelectOptionConfig<T> extends BaseComponentConfig  {
+    option: SelectOption<T>;
     value: Signal<any>;
     search: Signal<string>;
     optionsVisible: Signal<boolean>;
@@ -94,11 +94,11 @@ export interface SelectOptionConfig extends BaseComponentConfig  {
 }
 
 export interface SearchableSelectConfig<T = string> extends ChangeableConfig<T> {
-    options: Signal<SelectOption[]>;
+    options: Signal<SelectOption<T>[]>;
     value: Signal<T>;
 }
 
-export type SelectConfig = SearchableSelectConfig;
+export type SelectConfig<T> = SearchableSelectConfig<T>;
 
 export interface HeadingConfig extends BaseComponentConfig  {
     level?: IntRange<1, 6>;

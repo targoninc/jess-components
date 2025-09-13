@@ -310,7 +310,7 @@ export function icon(config: IconConfig) {
     }, asSignal(config.isUrl ?? false) as Signal<boolean>);
 }
 
-export function select(config: SelectConfig) {
+export function select<T = any>(config: SelectConfig<T>) {
     const options = config.options ?? signal([]);
     const value$ = config.value ?? signal(null);
     const selectId = v4();
@@ -328,10 +328,10 @@ export function select(config: SelectConfig) {
                     .classes("jessc-select-inner")
                     .id(selectId)
                     .onchange(e => {
-                        value$.value = (e.target as HTMLSelectElement).value;
-                        config.onchange ? config.onchange((e.target as HTMLSelectElement).value) : undefined;
+                        value$.value = (e.target as HTMLSelectElement).value as T;
+                        config.onchange ? config.onchange((e.target as HTMLSelectElement).value as T) : undefined;
                     }),
-                (option: SelectOption) => {
+                (option: SelectOption<T>) => {
                     return create("option")
                         .value(option.id)
                         .text(option.name)
@@ -341,7 +341,7 @@ export function select(config: SelectConfig) {
         ).build();
 }
 
-export function searchableSelect(config: SearchableSelectConfig) {
+export function searchableSelect<T = any>(config: SearchableSelectConfig<T>) {
     const options = config.options ?? signal([]);
     const value = config.value ?? signal(null);
 
@@ -432,12 +432,12 @@ export function searchableSelect(config: SearchableSelectConfig) {
                             })
                         ).build()
                 ).build(),
-            when(optionsVisible, signalMap(filtered, create("div").classes("jessc-search-select-options", "flex-v"), (option: SelectOption) =>
-                searchSelectOption({option, value, search, optionsVisible, selectedId})))
+            when(optionsVisible, signalMap(filtered, create("div").classes("jessc-search-select-options", "flex-v"), (option: SelectOption<T>) =>
+                searchSelectOption<T>({option, value, search, optionsVisible, selectedId})))
         ).build();
 }
 
-export function searchSelectOption(config: SelectOptionConfig) {
+export function searchSelectOption<T = any>(config: SelectOptionConfig<T>) {
     let element: any;
     const selectedClass = compute((id: string): string => {
         element?.scrollIntoView({behavior: "smooth", block: "nearest"});
