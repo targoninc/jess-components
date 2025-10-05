@@ -23,6 +23,7 @@ import {
     type TypeOrSignal,
     when
 } from "@targoninc/jess";
+import {debounce} from "./Debounce.ts";
 
 function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }) {
     let disabledClass;
@@ -66,20 +67,14 @@ export function input<T>(config: InputConfig<T>) {
     const toggleState = signal(false);
     const configTypeSignal = config.type.constructor === Signal ? config.type as Signal<InputType> : signal(config.type as InputType);
     const actualType = compute((t: boolean) => t ? InputType.text : configTypeSignal.value, toggleState);
+    const inputId = v4();
     let lastChange = 0;
-    let debounceTimeout: number | Timer | undefined;
 
     function validate(newValue: any) {
         errors.value = [];
         if (config.debounce) {
             if (Date.now() - lastChange < config.debounce) {
-                if (debounceTimeout) {
-                    clearTimeout(debounceTimeout);
-                }
-                debounceTimeout = setTimeout(() => {
-                    debounceTimeout = undefined;
-                    validate(newValue);
-                }, config.debounce);
+                debounce(inputId, () => validate(newValue), config.debounce);
                 return;
             }
         }
@@ -129,7 +124,8 @@ export function input<T>(config: InputConfig<T>) {
                             }
 
                             if (config.onchange) {
-                                config.onchange(e.target.value);
+                                // @ts-expect-error
+                                debounce(inputId, () => config.onchange(e.target.value), config.debounce);
                             }
                             value.value = e.target.value;
                         })
@@ -141,7 +137,8 @@ export function input<T>(config: InputConfig<T>) {
                             }
 
                             if (config.onchange) {
-                                config.onchange(e.target.value);
+                                // @ts-expect-error
+                                debounce(inputId, () => config.onchange(e.target.value), config.debounce);
                             }
                             value.value = e.target.value;
                         })
