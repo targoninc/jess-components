@@ -74,7 +74,7 @@ export function input<T>(config: InputConfig<T>) {
         errors.value = [];
         if (config.debounce) {
             if (Date.now() - lastChange < config.debounce) {
-                debounce(inputId, () => validate(newValue), config.debounce);
+                debounce(inputId + "validate", () => validate(newValue), config.debounce);
                 return;
             }
         }
@@ -125,9 +125,9 @@ export function input<T>(config: InputConfig<T>) {
 
                             if (config.onchange) {
                                 // @ts-expect-error
-                                debounce(inputId, () => config.onchange(e.target.value), config.debounce);
+                                debounce(inputId + "change", () => config.onchange(e.target.value), config.debounce);
                             }
-                            value.value = e.target.value;
+                            debounce(inputId + "value", () => value.value = e.target.value, config.debounce);
                         })
                         .onchange((e: any) => {
                             touched.value = true;
@@ -138,9 +138,9 @@ export function input<T>(config: InputConfig<T>) {
 
                             if (config.onchange) {
                                 // @ts-expect-error
-                                debounce(inputId, () => config.onchange(e.target.value), config.debounce);
+                                debounce(inputId + "change", () => config.onchange(e.target.value), config.debounce);
                             }
-                            value.value = e.target.value;
+                            debounce(inputId + "value", () => value.value = e.target.value, config.debounce);
                         })
                         .onkeydown(config.onkeydown ?? (() => {
                         }))
