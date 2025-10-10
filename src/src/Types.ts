@@ -50,6 +50,8 @@ export interface InputConfig<T> extends ChangeableConfig<T> {
     placeholder?: StringOrSignal;
     accept?: StringOrSignal;
     onkeydown?: EventHandler<KeyboardEvent>;
+    infoLink?: StringOrSignal;
+    infoText?: StringOrSignal;
     debounce?: number;
 }
 

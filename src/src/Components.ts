@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import {v4} from "uuid";
 import type {
     BooleanConfig,
     ButtonConfig,
@@ -107,6 +107,10 @@ export function input<T>(config: InputConfig<T>) {
                 .text(config.label ?? "")
                 .for(config.title)
                 .children(
+                    when(config.infoLink, create("a")
+                        .text(config.infoText ?? config.infoLink)
+                        .href(config.infoLink)
+                        .build()),
                     create("input")
                         .classes(invalidClass, passwordClass)
                         .applyGenericConfig(config)
