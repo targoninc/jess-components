@@ -110,6 +110,7 @@ export function input<T>(config: InputConfig<T>) {
                     when(config.infoLink, create("a")
                         .text(config.infoText ?? config.infoLink)
                         .href(config.infoLink)
+                        .target("_blank")
                         .classes("flex")
                         .children(
                             icon({
