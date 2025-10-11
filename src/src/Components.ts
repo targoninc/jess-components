@@ -110,7 +110,13 @@ export function input<T>(config: InputConfig<T>) {
                     when(config.infoLink, create("a")
                         .text(config.infoText ?? config.infoLink)
                         .href(config.infoLink)
-                        .build()),
+                        .classes("flex")
+                        .children(
+                            icon({
+                                icon: "info",
+                                adaptive: true,
+                            }),
+                        ).build()),
                     create("input")
                         .classes(invalidClass, passwordClass)
                         .applyGenericConfig(config)
