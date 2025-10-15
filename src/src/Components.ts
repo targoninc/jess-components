@@ -48,11 +48,13 @@ export function button(config: ButtonConfig) {
         .children(
             when(config.icon, () => create("div")
                 .classes("jess", "flex", "align-children")
+                .styles("pointer-events", "none")
                 .children(
                     icon(config.icon!)
                 ).build()),
             when(config.text, () => text(<TextConfig>{
                 text: config.text!,
+                styles: ["pointer-events", "none"]
             }))
         ).build();
 }
