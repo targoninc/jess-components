@@ -97,6 +97,9 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Install Dependencies
+        run: bun install
+
       - name: Publish To npm
         run: bun publish --access public
         env:
@@ -116,6 +119,9 @@ jobs:
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
+
+      - name: Install Dependencies
+        run: bun install
 
       - name: Publish to JSR
         run: bunx jsr publish
