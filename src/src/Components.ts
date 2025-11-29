@@ -1,3 +1,12 @@
+/**
+ * Component factory functions for building UI using the Jess runtime.
+ *
+ * All functions in this module return Jess `DomNode`/`AnyElement` instances
+ * that can be composed and mounted by consumers. Most functions accept a
+ * typed configuration object from `./Types`.
+ *
+ * @module jess-components/components
+ */
 import {v4} from "uuid";
 import type {
     BooleanConfig,
@@ -25,6 +34,11 @@ import {
 } from "@targoninc/jess";
 import {debounce} from "./Debounce.ts";
 
+/**
+ * Derives a `disabled`/`enabled` CSS class based on a boolean or signal.
+ *
+ * @internal
+ */
 function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }): TypeOrSignal<string> {
     let disabledClass;
     if (isSignal(config.disabled)) {
@@ -37,6 +51,15 @@ function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }): TypeOrS
     return disabledClass;
 }
 
+/**
+ * Creates a button element.
+ *
+ * Renders optional icon and text, applies disabled styling from `config.disabled`,
+ * and wires the `onclick` handler.
+ *
+ * @param config - {@link ButtonConfig} for the button.
+ * @returns A Jess element representing a `<button>`.
+ */
 export function button(config: ButtonConfig): AnyElement {
     config.classes ??= [];
 
@@ -59,6 +82,16 @@ export function button(config: ButtonConfig): AnyElement {
         ).build();
 }
 
+/**
+ * Creates a labeled input control with validation and optional debouncing.
+ *
+ * Shows error messages from `validators` and `required` when `touched`.
+ * Supports password visibility toggle when `type === InputType.password`.
+ *
+ * @typeParam T - Value type for the input component.
+ * @param config - {@link InputConfig} describing the input.
+ * @returns A Jess element representing the input control.
+ */
 export function input<T>(config: InputConfig<T>): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => [...e].length > 0, errors);
@@ -167,6 +200,13 @@ export function input<T>(config: InputConfig<T>): AnyElement {
         ).build();
 }
 
+/**
+ * Helper that renders an eye icon button used by password inputs.
+ *
+ * @param toggleState - Signal toggled when the button is clicked.
+ * @param onClick - Callback invoked on click.
+ * @returns A Jess element representing the eye icon button.
+ */
 export function eyeButton(toggleState: Signal<boolean>, onClick: Function): AnyElement {
     const icon$ = compute((t: boolean): string => t ? "visibility" : "visibility_off", toggleState);
 
@@ -182,6 +222,12 @@ export function eyeButton(toggleState: Signal<boolean>, onClick: Function): AnyE
         ).build();
 }
 
+/**
+ * Creates a labeled `<textarea>` with validation handling.
+ *
+ * @param config - {@link TextareaConfig} for the textarea.
+ * @returns A Jess element representing the textarea control.
+ */
 export function textarea(config: TextareaConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
@@ -248,11 +294,23 @@ export function textarea(config: TextareaConfig): AnyElement {
         ).build();
 }
 
+/**
+ * Renders a list of validation errors.
+ *
+ * @param errors - Signal containing error messages.
+ * @returns A Jess element with error items.
+ */
 export function errorList(errors: Signal<string[]>): any {
     return signalMap(errors, create("div")
         .classes("flex-v", "jess", "jessc-error-list"), error);
 }
 
+/**
+ * Renders a single error message.
+ *
+ * @param error - Error message content.
+ * @returns A Jess element representing the error line.
+ */
 export function error(error: StringOrSignal): AnyElement {
     return create("span")
         .classes("jessc-error")
@@ -260,6 +318,12 @@ export function error(error: StringOrSignal): AnyElement {
         .build();
 }
 
+/**
+ * Creates a simple bordered area container.
+ *
+ * @param config - {@link ContainerConfig} for the container.
+ * @returns A Jess element representing the area container.
+ */
 export function area(config: ContainerConfig): AnyElement {
     config.classes ??= [];
     config.children ??= [];
@@ -271,6 +335,12 @@ export function area(config: ContainerConfig): AnyElement {
         .build();
 }
 
+/**
+ * Creates a generic container element with provided `tag` and `children`.
+ *
+ * @param config - {@link ContainerConfig}.
+ * @returns A Jess element for the container.
+ */
 export function container(config: ContainerConfig): AnyElement {
     config.classes ??= [];
     config.children ??= [];
@@ -282,6 +352,12 @@ export function container(config: ContainerConfig): AnyElement {
         .build();
 }
 
+/**
+ * Renders text inside a given `tag` (e.g., `span`, `p`).
+ *
+ * @param config - {@link TextConfig}.
+ * @returns A Jess element for the text node.
+ */
 export function text(config: TextConfig): AnyElement {
     return create(config.tag ?? "span")
         .applyGenericConfig(config)
@@ -289,6 +365,12 @@ export function text(config: TextConfig): AnyElement {
         .build();
 }
 
+/**
+ * Renders a heading (h1-h6) based on `level`.
+ *
+ * @param config - {@link HeadingConfig}.
+ * @returns A Jess heading element.
+ */
 export function heading(config: HeadingConfig): AnyElement {
     return create(`h${config.level ?? 1}`)
         .applyGenericConfig(config)
@@ -296,6 +378,13 @@ export function heading(config: HeadingConfig): AnyElement {
         .build();
 }
 
+/**
+ * Renders an icon element. If `isUrl` is truthy, renders an `<img>`; otherwise,
+ * renders an inline icon. When `adaptive` is true, adapts styles to context.
+ *
+ * @param config - {@link IconConfig} specifying icon source and behavior.
+ * @returns A signal of Jess element, allowing updates when icon-related signals change.
+ */
 export function icon(config: IconConfig): Signal<AnyElement> {
     const icon = config.icon;
     const iconClass = config.adaptive ? "adaptive-icon" : "static-icon";
@@ -320,6 +409,13 @@ export function icon(config: IconConfig): Signal<AnyElement> {
     }, asSignal(config.isUrl ?? false) as Signal<boolean>);
 }
 
+/**
+ * Renders a non-searchable select control.
+ *
+ * @typeParam T - Type of the option value.
+ * @param config - {@link SelectConfig} for the select.
+ * @returns A Jess element for the select control.
+ */
 export function select<T = any>(config: SelectConfig<T>): AnyElement {
     const options = config.options ?? signal([]);
     const value$ = config.value ?? signal(null);
@@ -351,6 +447,13 @@ export function select<T = any>(config: SelectConfig<T>): AnyElement {
         ).build();
 }
 
+/**
+ * Renders a searchable select control with a filterable dropdown.
+ *
+ * @typeParam T - Type of the option value.
+ * @param config - {@link SearchableSelectConfig} for the control.
+ * @returns A Jess element for the searchable select.
+ */
 export function searchableSelect<T = any>(config: SearchableSelectConfig<T>): AnyElement {
     const options = config.options ?? signal([]);
     const value = config.value ?? signal(null);
@@ -447,6 +550,13 @@ export function searchableSelect<T = any>(config: SearchableSelectConfig<T>): An
         ).build();
 }
 
+/**
+ * Renders a single selectable option for the searchable select dropdown.
+ *
+ * @typeParam T - Type of the option value.
+ * @param config - {@link SelectOptionConfig} for the option.
+ * @returns A Jess element representing the option.
+ */
 export function searchSelectOption<T = any>(config: SelectOptionConfig<T>): AnyElement {
     let element: AnyElement;
     const selectedClass = compute((id: string): string => {
@@ -477,6 +587,12 @@ export function searchSelectOption<T = any>(config: SelectOptionConfig<T>): AnyE
     return element;
 }
 
+/**
+ * Renders a checkbox control with label and validation support.
+ *
+ * @param config - {@link BooleanConfig}.
+ * @returns A Jess element for the checkbox.
+ */
 export function checkbox(config: BooleanConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
@@ -542,6 +658,12 @@ export function checkbox(config: BooleanConfig): AnyElement {
         ).build();
 }
 
+/**
+ * Renders a binary on/off toggle switch with label and validation support.
+ *
+ * @param config - {@link BooleanConfig}.
+ * @returns A Jess element for the toggle switch.
+ */
 export function toggle(config: BooleanConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
