@@ -35,7 +35,7 @@ jobs:
             node-modules-
 
       - name: Install Dependencies
-        run: bun install
+        run: bun ci
 
       - name: Build
         run: bun run build
@@ -98,7 +98,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Install Dependencies
-        run: bun install
+        run: bun ci
 
       - name: Publish To npm
         run: bun publish --access public
@@ -121,7 +121,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Install Dependencies
-        run: bun install
+        run: bun ci
 
       - name: Publish to JSR
         run: bunx jsr publish
