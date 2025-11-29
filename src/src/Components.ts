@@ -25,7 +25,7 @@ import {
 } from "@targoninc/jess";
 import {debounce} from "./Debounce.ts";
 
-function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }) {
+function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }): TypeOrSignal<string> {
     let disabledClass;
     if (isSignal(config.disabled)) {
         disabledClass = compute((newValue): string =>
@@ -37,7 +37,7 @@ function getDisabledClass(config: { disabled?: TypeOrSignal<boolean> }) {
     return disabledClass;
 }
 
-export function button(config: ButtonConfig) {
+export function button(config: ButtonConfig): AnyElement {
     config.classes ??= [];
 
     return create("button")
@@ -59,7 +59,7 @@ export function button(config: ButtonConfig) {
         ).build();
 }
 
-export function input<T>(config: InputConfig<T>) {
+export function input<T>(config: InputConfig<T>): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => [...e].length > 0, errors);
     const invalidClass = compute((has: boolean): string => has ? "invalid" : "valid", hasError);
@@ -182,7 +182,7 @@ export function eyeButton(toggleState: Signal<boolean>, onClick: Function): AnyE
         ).build();
 }
 
-export function textarea(config: TextareaConfig) {
+export function textarea(config: TextareaConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
     const invalidClass = compute((has: boolean): string => has ? "invalid" : "valid", hasError);
@@ -248,19 +248,19 @@ export function textarea(config: TextareaConfig) {
         ).build();
 }
 
-export function errorList(errors: Signal<string[]>) {
+export function errorList(errors: Signal<string[]>): any {
     return signalMap(errors, create("div")
         .classes("flex-v", "jess", "jessc-error-list"), error);
 }
 
-export function error(error: StringOrSignal) {
+export function error(error: StringOrSignal): AnyElement {
     return create("span")
         .classes("jessc-error")
         .text(error)
         .build();
 }
 
-export function area(config: ContainerConfig) {
+export function area(config: ContainerConfig): AnyElement {
     config.classes ??= [];
     config.children ??= [];
 
@@ -271,7 +271,7 @@ export function area(config: ContainerConfig) {
         .build();
 }
 
-export function container(config: ContainerConfig) {
+export function container(config: ContainerConfig): AnyElement {
     config.classes ??= [];
     config.children ??= [];
 
@@ -282,21 +282,21 @@ export function container(config: ContainerConfig) {
         .build();
 }
 
-export function text(config: TextConfig) {
+export function text(config: TextConfig): AnyElement {
     return create(config.tag ?? "span")
         .applyGenericConfig(config)
         .text(config.text)
         .build();
 }
 
-export function heading(config: HeadingConfig) {
+export function heading(config: HeadingConfig): AnyElement {
     return create(`h${config.level ?? 1}`)
         .applyGenericConfig(config)
         .text(config.text)
         .build();
 }
 
-export function icon(config: IconConfig) {
+export function icon(config: IconConfig): Signal<AnyElement> {
     const icon = config.icon;
     const iconClass = config.adaptive ? "adaptive-icon" : "static-icon";
     const pointerClass = config.title ? "_" : "no-pointer";
@@ -320,7 +320,7 @@ export function icon(config: IconConfig) {
     }, asSignal(config.isUrl ?? false) as Signal<boolean>);
 }
 
-export function select<T = any>(config: SelectConfig<T>) {
+export function select<T = any>(config: SelectConfig<T>): AnyElement {
     const options = config.options ?? signal([]);
     const value$ = config.value ?? signal(null);
     const selectId = v4();
@@ -351,7 +351,7 @@ export function select<T = any>(config: SelectConfig<T>) {
         ).build();
 }
 
-export function searchableSelect<T = any>(config: SearchableSelectConfig<T>) {
+export function searchableSelect<T = any>(config: SearchableSelectConfig<T>): AnyElement {
     const options = config.options ?? signal([]);
     const value = config.value ?? signal(null);
 
@@ -447,8 +447,8 @@ export function searchableSelect<T = any>(config: SearchableSelectConfig<T>) {
         ).build();
 }
 
-export function searchSelectOption<T = any>(config: SelectOptionConfig<T>) {
-    let element: any;
+export function searchSelectOption<T = any>(config: SelectOptionConfig<T>): AnyElement {
+    let element: AnyElement;
     const selectedClass = compute((id: string): string => {
         element?.scrollIntoView({behavior: "smooth", block: "nearest"});
         return id === config.option.id ? "selected" : "_";
@@ -477,7 +477,7 @@ export function searchSelectOption<T = any>(config: SelectOptionConfig<T>) {
     return element;
 }
 
-export function checkbox(config: BooleanConfig) {
+export function checkbox(config: BooleanConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
     const invalidClass = compute((has: boolean): string => has ? "invalid" : "valid", hasError);
@@ -542,7 +542,7 @@ export function checkbox(config: BooleanConfig) {
         ).build();
 }
 
-export function toggle(config: BooleanConfig) {
+export function toggle(config: BooleanConfig): AnyElement {
     const errors = signal<string[]>([]);
     const hasError = compute((e) => e.length > 0, errors);
     const invalidClass = compute((has: boolean): string => has ? "invalid" : "valid", hasError);
