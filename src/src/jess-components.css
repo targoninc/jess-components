@@ -28,6 +28,7 @@
     --jessc-interactive-border: var(--jessc-primary-700);
     --jessc-interactive-border-focused: #1ca6ff;
     --jessc-interactive-border-active: #1685cc;
+    --jessc-interactive-border-hover: var(--jessc-primary-500);
 
     --jessc-input-padding-x: 0.75em;
     --jessc-input-padding-y: 0.3em;
@@ -140,7 +141,7 @@ label.jess {
 
 button.jess:hover {
     cursor: pointer;
-    border: 1px solid var(--jessc-interactive-border-active);
+    border: 1px solid var(--jessc-interactive-border-hover);
 }
 
 button.jess:hover, input.jess:hover, select.jess:hover, textarea.jess:hover {
