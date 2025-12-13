@@ -1,6 +1,6 @@
 {
   "name": "@targoninc/jess-components",
-  "version": "0.0.45",
+  "version": "0.0.47",
   "license": "MIT",
   "exports": "./src/index.ts"
 }
