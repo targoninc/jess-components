@@ -316,7 +316,7 @@ h6.jess {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: var(--jessc-interactive-background-active);
+    background: var(--jessc-interactive-border);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
