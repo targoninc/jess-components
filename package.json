@@ -17,7 +17,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@targoninc/jess": "^0.0.29",
+    "@targoninc/jess": "^0.0.30",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
