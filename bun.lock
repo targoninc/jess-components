@@ -3,7 +3,7 @@
   "workspaces": {
     "": {
       "dependencies": {
-        "@targoninc/jess": "^0.0.26",
+        "@targoninc/jess": "^0.0.29",
         "uuid": "^11.1.0",
       },
       "devDependencies": {
@@ -18,7 +18,7 @@
   "packages": {
     "@stacksjs/dtsx": ["@stacksjs/dtsx@0.8.0", "", { "bin": { "dtsx": "dist/cli.js" } }, "sha512-x7HxXTRZTrwvpSTZlxL5lu4F1sFHnDynAQBNr3UIkrctCKQbe7dYM21SfEozBx5+qBk+Mv1yZUvrUL/aA1bQwg=="],
 
-    "@targoninc/jess": ["@targoninc/jess@0.0.26", "", { "peerDependencies": { "typescript": "^5" } }, "sha512-gxAuYZbjO3Rha/v4FuZguJ6UPpacaQ9Jgr5Uc6Z0Y/YdnSUwaMk2Lu9Mq3sNBR79vkQ6LFXWo2NjeAJOy4Osbg=="],
+    "@targoninc/jess": ["@targoninc/jess@0.0.29", "", { "peerDependencies": { "typescript": "^5" } }, "sha512-KJynCrmMXQ+v+HxF2wZpiMLkVize1JjX8o495nSCjp51HNyh+czVTi/mPhPVuo+XhTbwJtKlDyIXKiagaWHeCg=="],
 
     "@types/bun": ["@types/bun@1.2.10", "", { "dependencies": { "bun-types": "1.2.10" } }, "sha512-eilv6WFM3M0c9ztJt7/g80BDusK98z/FrFwseZgT4bXCq2vPhXD4z8R3oddmAn+R/Nmz9vBn4kweJKmGTZj+lg=="],
 

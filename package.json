@@ -12,12 +12,12 @@
     "url": "git+https://github.com/targoninc/jess-components.git"
   },
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist --target bun --format esm --root ./src && tsc",
+    "build": "tsc && bun build ./src/jess-components/*.ts --outdir ./dist --target node --format esm --root ./src",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@targoninc/jess": "^0.0.26",
+    "@targoninc/jess": "^0.0.29",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
