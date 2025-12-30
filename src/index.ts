@@ -7,5 +7,5 @@
  *
  * @module jess-components
  */
-export * from "./src/Components";
-export * from "./src/Types";
+export * from "./jess-components/Components";
+export * from "./jess-components/Types";
