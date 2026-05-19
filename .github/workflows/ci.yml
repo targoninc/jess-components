@@ -12,10 +12,12 @@ on:
 
 jobs:
   prepare-release:
-    name: Build, Version Bump, and Release
+    name: Compute Version and Tag Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      new_version: ${{ steps.bump-version.outputs.new_version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -23,56 +25,42 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Use Cached node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('**/bun.lock') }}
-          restore-keys: |
-            node-modules-
-
-      - name: Install Dependencies
-        run: bun ci
-
-      - name: Build
-        run: bun run build
-
-      - name: Bump Version
+      - name: Compute Version
         id: bump-version
         run: |
-          # Get current version from package.json
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
           CURRENT_VERSION=$(node -p "require('./package.json').version")
+          IFS='.' read -ra LOCAL_PARTS <<< "$CURRENT_VERSION"
+          MAJOR=${LOCAL_PARTS[0]}
+          MINOR=${LOCAL_PARTS[1]}
 
-          # Split version into parts
-          IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
-          MAJOR=${VERSION_PARTS[0]}
-          MINOR=${VERSION_PARTS[1]}
-          PATCH=${VERSION_PARTS[2]}
+          # Get latest published version from npm
+          NPM_LATEST=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "")
 
-          # Increment patch version
-          NEW_PATCH=$((PATCH + 1))
+          if [ -z "$NPM_LATEST" ]; then
+            NEW_PATCH=0
+          else
+            IFS='.' read -ra NPM_PARTS <<< "$NPM_LATEST"
+            NPM_MAJOR=${NPM_PARTS[0]}
+            NPM_MINOR=${NPM_PARTS[1]}
+            NPM_PATCH=${NPM_PARTS[2]}
+            if [ "$NPM_MAJOR" = "$MAJOR" ] && [ "$NPM_MINOR" = "$MINOR" ]; then
+              NEW_PATCH=$((NPM_PATCH + 1))
+            else
+              NEW_PATCH=0
+            fi
+          fi
+
           NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
-
-          # Update package.json with new version
-          npm version $NEW_VERSION --no-git-tag-version
-          
-          bun run ./scripts/bumpJsrVersion.ts
-
           echo "New version: $NEW_VERSION"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Commit and Push Changes
+      - name: Tag Release
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add package.json
-          git add jsr.json
-          git commit -m "Bump version to ${{ steps.bump-version.outputs.new_version }}" || echo "No changes to commit"
           git tag -a "v${{ steps.bump-version.outputs.new_version }}" -m "Release v${{ steps.bump-version.outputs.new_version }}"
-          git push --follow-tags
+          git push origin "v${{ steps.bump-version.outputs.new_version }}"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -97,8 +85,19 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Use Cached node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
       - name: Install Dependencies
         run: bun ci
+
+      - name: Set Version
+        run: npm version ${{ needs.prepare-release.outputs.new_version }} --no-git-tag-version
 
       - name: Publish To npm
         run: bun publish --access public
@@ -120,8 +119,21 @@ jobs:
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Use Cached node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
       - name: Install Dependencies
         run: bun ci
+
+      - name: Set Version
+        run: |
+          npm version ${{ needs.prepare-release.outputs.new_version }} --no-git-tag-version
+          bun run ./scripts/bumpJsrVersion.ts ${{ needs.prepare-release.outputs.new_version }}
 
       - name: Publish to JSR
         run: bunx jsr publish
