@@ -97,7 +97,7 @@ jobs:
         run: bun ci
 
       - name: Set Version
-        run: npm version ${{ needs.prepare-release.outputs.new_version }} --no-git-tag-version
+        run: jq '.version = "${{ needs.prepare-release.outputs.new_version }}"' package.json > _tmp.json && mv _tmp.json package.json
 
       - name: Publish To npm
         run: bun publish --access public
@@ -132,7 +132,7 @@ jobs:
 
       - name: Set Version
         run: |
-          npm version ${{ needs.prepare-release.outputs.new_version }} --no-git-tag-version
+          jq '.version = "${{ needs.prepare-release.outputs.new_version }}"' package.json > _tmp.json && mv _tmp.json package.json
           bun run ./scripts/bumpJsrVersion.ts ${{ needs.prepare-release.outputs.new_version }}
 
       - name: Publish to JSR
