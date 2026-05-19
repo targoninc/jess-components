@@ -90,6 +90,7 @@ export interface InputConfig<T> extends ChangeableConfig<T> {
     onkeydown?: EventHandler<KeyboardEvent>;
     infoLink?: StringOrSignal;
     infoText?: StringOrSignal;
+    wrapperClasses?: StringOrSignal[];
     debounce?: number;
 }
 

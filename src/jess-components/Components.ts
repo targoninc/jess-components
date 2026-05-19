@@ -135,7 +135,7 @@ export function input<T>(config: InputConfig<T>): AnyElement {
     }
 
     return create("div")
-        .classes("flex-v", "jess")
+        .classes("flex-v", "jess", ...(config.wrapperClasses ?? []))
         .children(
             create("label")
                 .classes("flex-v", "jess", getDisabledClass(config))
